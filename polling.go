@@ -6,6 +6,9 @@ import (
 )
 
 func (bot *Bot) Polling() <-chan struct{} {
+	if len(bot.Handlers) == 0 {
+		panic(errors.NoHandlers)
+	}
 	stop := make(chan struct{})
 	bot.stopChannel = stop
 	go func() {

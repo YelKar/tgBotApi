@@ -21,13 +21,17 @@ func (e *_error) Error() string {
 
 type Error *_error
 
-var NoUpdates = &_error{
+var NoHandlers Error = &_error{
+	Code:  0,
+	Text:  "No handlers\n\tUse Bot.AddHandler(Handler) to add handlers",
+	Level: HIGH,
+}
+var NoUpdates Error = &_error{
 	Code:  1,
 	Text:  "no updates",
 	Level: LOW,
 }
-
-var WebhookIsActive = &_error{
+var WebhookIsActive Error = &_error{
 	Code: 409,
 	Text: "can't use getUpdates method while webhook is active\n" +
 		"\tUse Bot.DeleteWebhook() to delete the webhook",
