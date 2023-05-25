@@ -18,7 +18,7 @@ func (bot *Bot) Polling() <-chan struct{} {
 				return
 			default:
 				update, err := bot.Get()
-				if err == nil {
+				if err == errors.Nil {
 					bot.processUpdate(update)
 				} else if err.Level == errors.HIGH {
 					panic(err)

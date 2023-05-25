@@ -30,7 +30,7 @@ func (bot *Bot) Get() (utils.Update, errors.Error) {
 	resp := bot.GetUpdates()
 	if len(resp.Result) > 0 {
 		lastUpdate = resp.Result[0].ID
-		return resp.Result[0], nil
+		return resp.Result[0], errors.Nil
 	} else if resp.ErrorCode == 409 {
 		return utils.Update{}, errors.WebhookIsActive
 	}
