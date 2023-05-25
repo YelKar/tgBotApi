@@ -7,6 +7,8 @@ import (
 	"net/http"
 )
 
+func main() {}
+
 var url = "https://api.telegram.org/bot%s/%s"
 var lastUpdate = 0
 
