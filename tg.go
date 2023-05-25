@@ -38,17 +38,23 @@ func (bot *Bot) Get() (utils.Update, errors.Error) {
 }
 
 func (bot *Bot) SetWebhook(webhookUrl string) {
-	http.Post(
+	_, err := http.Post(
 		fmt.Sprintf(url, bot.TOKEN, "setWebhook"),
 		"application/json",
 		bytes.NewReader([]byte(fmt.Sprintf(`{"url": "%s"}`, webhookUrl))),
 	)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func (bot *Bot) DeleteWebhook(webhookUrl string) {
-	http.Post(
+	_, err := http.Post(
 		fmt.Sprintf(url, bot.TOKEN, "setWebhook"),
 		"application/json",
 		bytes.NewReader([]byte(fmt.Sprintf(`{"url": "%s"}`, webhookUrl))),
 	)
+	if err != nil {
+		panic(err)
+	}
 }
