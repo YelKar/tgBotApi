@@ -2,9 +2,8 @@ package tg
 
 import (
 	"fmt"
-	"tg/utils"
+	"github.com/YelKar/tgBotApi/utils"
 )
-
 
 func (bot *Bot) Polling() <-chan struct{} {
 	stop := make(chan struct{})

@@ -3,17 +3,17 @@ package tg
 import (
 	"bytes"
 	"fmt"
+	"github.com/YelKar/tgBotApi/utils"
 	"net/http"
-	"tg/utils"
 )
 
 var url = "https://api.telegram.org/bot%s/%s"
 var lastUpdate = 0
 
 type Bot struct {
-	TOKEN string
-	Handlers []Handler
-	stopChannel chan struct {}
+	TOKEN       string
+	Handlers    []Handler
+	stopChannel chan struct{}
 }
 
 type Handler struct {

@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/YelKar/tgBotApi/utils"
 	"io"
 	"net/http"
-	"tg/utils"
 )
 
 func (bot *Bot) SendMessage(chatID int, msgText string) {
@@ -34,6 +34,6 @@ func (bot *Bot) GetUpdates() utils.TGResponse {
 	updateJson, _ := io.ReadAll(res.Body)
 	var resp utils.TGResponse
 	json.Unmarshal(updateJson, &resp)
-	resp.JSON = string(updateJson);
+	resp.JSON = string(updateJson)
 	return resp
 }
