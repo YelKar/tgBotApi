@@ -1,9 +1,10 @@
 package utils
 
 type TGResponse struct {
-	OK     bool     `json:"ok"`
-	Result []Update `json:"result"`
-	JSON string `json:",omitempty"`
+	OK        bool     `json:"ok"`
+	Result    []Update `json:"result"`
+	ErrorCode int      `json:"error_code,omitempty"`
+	JSON      string   `json:",omitempty"`
 }
 
 type Update struct {

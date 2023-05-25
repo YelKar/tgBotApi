@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/YelKar/tgBotApi/utils"
+	"github.com/YelKar/tgBotApi/utils/errors"
 	"net/http"
 )
 
@@ -25,14 +26,15 @@ func (bot *Bot) AddHandler(handler Handler) {
 	bot.Handlers = append(bot.Handlers, handler)
 }
 
-func (bot *Bot) Get() (utils.Update, bool) {
+func (bot *Bot) Get() (utils.Update, errors.Error) {
 	resp := bot.GetUpdates()
-
 	if len(resp.Result) > 0 {
 		lastUpdate = resp.Result[0].ID
-		return resp.Result[0], true
+		return resp.Result[0], nil
+	} else if resp.ErrorCode == 409 {
+		return utils.Update{}, errors.WebhookIsActive
 	}
-	return utils.Update{}, false
+	return utils.Update{}, errors.NoUpdates
 }
 
 func (bot *Bot) SetWebhook(webhookUrl string) {

@@ -2,6 +2,7 @@ package tg
 
 import (
 	"github.com/YelKar/tgBotApi/utils"
+	"github.com/YelKar/tgBotApi/utils/errors"
 )
 
 func (bot *Bot) Polling() <-chan struct{} {
@@ -13,9 +14,11 @@ func (bot *Bot) Polling() <-chan struct{} {
 			case <-stop:
 				return
 			default:
-				update, ok := bot.Get()
-				if ok {
+				update, err := bot.Get()
+				if err == nil {
 					bot.processUpdate(update)
+				} else if err.Level == errors.HIGH {
+					panic(err)
 				}
 			}
 		}
