@@ -1,7 +1,6 @@
 package tg
 
 import (
-	"fmt"
 	"github.com/YelKar/tgBotApi/utils"
 )
 
@@ -12,7 +11,6 @@ func (bot *Bot) Polling() <-chan struct{} {
 		for {
 			select {
 			case <-stop:
-				fmt.Println("Polling stopped")
 				return
 			default:
 				update, ok := bot.Get()
