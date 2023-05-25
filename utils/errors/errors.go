@@ -17,7 +17,7 @@ type Error struct {
 
 var Nil Error
 
-func (e *Error) Error() string {
+func (e Error) Error() string {
 	return fmt.Sprintf("error %d: %s", e.Code, e.Text)
 }
 
