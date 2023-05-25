@@ -12,7 +12,6 @@ type Error struct {
 	Code  int
 	Text  string
 	Level int8
-	error
 }
 
 var Nil Error
