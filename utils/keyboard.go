@@ -19,9 +19,20 @@ func (kbr *KeyboardRow) Add(buttons ...KeyboardButton) {
 	*kbr = append(*kbr, buttons...)
 }
 
+type InlineKeyboardRow []InlineKeyboardButton
 type InlineKeyboard struct {
-	Text string
+	Keyboard []InlineKeyboardRow `json:"keyboard"`
 }
 
 type InlineKeyboardButton struct {
+	Text         string `json:"text"`
+	URL          string `json:"url"`
+	CallbackData string `json:"callback_data"`
+}
+
+func (kb *InlineKeyboard) Add(rows ...InlineKeyboardRow) {
+	kb.Keyboard = append(kb.Keyboard, rows...)
+}
+func (kbr *InlineKeyboardRow) Add(buttons ...InlineKeyboardButton) {
+	*kbr = append(*kbr, buttons...)
 }
