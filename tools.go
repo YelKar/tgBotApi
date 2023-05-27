@@ -18,6 +18,8 @@ func (bot *Bot) SendMessage(chatID int, msgText string, params ...interface{}) {
 		switch param.(type) {
 		case utils.Keyboard:
 			msg.Keyboard = param.(utils.Keyboard)
+		case utils.InlineKeyboard:
+			msg.InlineKeyboard = param.(utils.InlineKeyboard)
 		}
 	}
 

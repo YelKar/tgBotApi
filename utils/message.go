@@ -28,10 +28,11 @@ func (msg *Message) Type() MessageType {
 }
 
 type SentMessage struct {
-	ChatID    int      `json:"chat_id"`
-	Text      string   `json:"text"`
-	ParseMode string   `json:"parse_mode,omitempty"`
-	Keyboard  Keyboard `json:"reply_markup,omitempty"`
+	ChatID         int            `json:"chat_id"`
+	Text           string         `json:"text"`
+	ParseMode      string         `json:"parse_mode,omitempty"`
+	Keyboard       Keyboard       `json:"reply_markup,omitempty"`
+	InlineKeyboard InlineKeyboard `json:"reply_markup,omitempty"`
 }
 
 type Sticker struct {
