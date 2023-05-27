@@ -46,3 +46,10 @@ func (bot *Bot) processUpdate(update utils.Update) {
 		}
 	}
 }
+
+func (bot *Bot) LastUpdate(set ...int) int {
+	if len(set) > 0 && lastUpdate < set[0] {
+		lastUpdate = set[0]
+	}
+	return lastUpdate
+}

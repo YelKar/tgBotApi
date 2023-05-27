@@ -18,8 +18,9 @@ type Bot struct {
 }
 
 type Handler struct {
-	Filter  func(string) bool
-	Handler func(*Bot, utils.Message)
+	Filter      func(string) bool
+	Handler     func(*Bot, utils.Message)
+	MessageType utils.MessageType
 }
 
 func (bot *Bot) AddHandler(handler Handler) {
