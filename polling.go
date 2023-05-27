@@ -39,10 +39,13 @@ func (bot *Bot) WaitPolling() {
 }
 
 func (bot *Bot) processUpdate(update utils.Update) {
-	for _, handler := range bot.Handlers {
-		if handler.Filter(update.Message.Text) {
-			handler.Handler(bot, update.Message)
-			break
+	if update.Message != nil {
+		msg := update.Message
+		for _, handler := range bot.Handlers {
+			if (handler.MessageType&msg.Type() != 0 || handler.MessageType == 0) && handler.Filter(msg.Text) {
+				handler.Handler(bot, msg)
+				break
+			}
 		}
 	}
 }

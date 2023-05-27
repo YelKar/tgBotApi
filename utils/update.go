@@ -8,8 +8,8 @@ type TGResponse struct {
 }
 
 type Update struct {
-	ID      int     `json:"update_id"`
-	Message Message `json:"message"`
+	ID      int      `json:"update_id"`
+	Message *Message `json:"message"`
 }
 
 type Query struct {

@@ -2,12 +2,29 @@ package utils
 
 type Message struct {
 	MessageID      int      `json:"message_id"`
-	Text           string   `json:"text"`
+	Text           string   `json:"text,omitempty"`
 	From           User     `json:"from"`
 	Chat           Chat     `json:"chat"`
 	ReplyToMessage *Message `json:"reply_to_message,omitempty"`
-	Sticker        *Sticker `json:"sticker"`
-	ForwardFrom    *Message `json:"forward_from"`
+	Sticker        *Sticker `json:"sticker,omitempty"`
+	ForwardFrom    *Message `json:"forward_from,omitempty"`
+}
+
+func (msg *Message) Type() MessageType {
+	var msgType MessageType = 0
+	if msg.ForwardFrom != nil {
+		msgType += ForwardedMessage
+	}
+	if msg.ReplyToMessage != nil {
+		msgType += ReplyToMessage
+	}
+	if msg.Sticker != nil {
+		msgType += StickerMessage
+	}
+	if msgType == 0 {
+		msgType += InputMessage
+	}
+	return msgType
 }
 
 type SentMessage struct {
@@ -35,5 +52,5 @@ const (
 	CallbackQuery
 	PollMessage
 	StickerMessage
-	TextMessage = InputMessage + EditedMessage + ForwardedMessage + ReplyToMessage
+	TextMessage = InputMessage | EditedMessage | ForwardedMessage | ReplyToMessage
 )
