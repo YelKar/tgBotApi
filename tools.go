@@ -11,8 +11,16 @@ import (
 	"net/http"
 )
 
-func (bot *Bot) SendMessage(chatID int, msgText string) {
+func (bot *Bot) SendMessage(chatID int, msgText string, params ...interface{}) {
 	msg := utils.SentMessage{ChatID: chatID, Text: msgText}
+
+	for _, param := range params {
+		switch param.(type) {
+		case utils.Keyboard:
+			msg.Keyboard = param.(utils.Keyboard)
+		}
+	}
+
 	Json, _ := json.Marshal(msg)
 	param := bytes.NewReader(Json)
 	resp, err := http.Post(
