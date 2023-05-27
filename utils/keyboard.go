@@ -20,6 +20,7 @@ func (kbr *KeyboardRow) Add(buttons ...KeyboardButton) {
 }
 
 type InlineKeyboard struct {
+	Text string
 }
 
 type InlineKeyboardButton struct {
