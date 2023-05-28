@@ -6,6 +6,10 @@ type Keyboard struct {
 	OneTimeKeyboard bool          `json:"one_time_keyboard"`
 	// input_field_placeholder string
 }
+type RemoveKeyboard struct {
+	Remove    bool `json:"remove_keyboard"`
+	Selective bool `json:"selective,omitempty"`
+}
 type KeyboardRow []KeyboardButton
 
 type KeyboardButton struct {
