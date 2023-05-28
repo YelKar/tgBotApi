@@ -40,3 +40,9 @@ func (kb *InlineKeyboard) Add(rows ...InlineKeyboardRow) {
 func (kbr *InlineKeyboardRow) Add(buttons ...InlineKeyboardButton) {
 	*kbr = append(*kbr, buttons...)
 }
+
+type ReplyMarkup struct {
+	Keyboard       Keyboard       `json:"keyboard"`
+	InlineKeyboard InlineKeyboard `json:"inline_keyboard"`
+	RemoveKeyboard RemoveKeyboard `json:"remove_keyboard"`
+}
