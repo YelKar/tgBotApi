@@ -15,13 +15,9 @@ func (bot *Bot) SendMessage(chatID int, msgText string, params ...interface{}) {
 	msg := utils.SentMessage{ChatID: chatID, Text: msgText}
 
 	for _, param := range params {
-		switch mu := param.(type) {
-		case utils.Keyboard:
-			msg.ReplyMarkup.Keyboard = &mu
-		case utils.InlineKeyboard:
-			msg.ReplyMarkup.InlineKeyboard = &mu
-		case utils.RemoveKeyboard:
-			msg.ReplyMarkup.RemoveKeyboard = &mu
+		switch kb := param.(type) {
+		case utils.Keyboard, utils.RemoveKeyboard, utils.InlineKeyboard:
+			msg.Keyboard = kb
 		}
 	}
 
