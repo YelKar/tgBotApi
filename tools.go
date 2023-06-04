@@ -12,7 +12,7 @@ import (
 )
 
 func (bot *Bot) SendMessage(chatID int, msgText string, params ...interface{}) {
-	msg := utils.SentMessage{ChatID: chatID, Text: msgText}
+	msg := utils.SentMessage{ChatID: chatID, Text: msgText, ParseMode: bot.ParseMode}
 
 	for _, param := range params {
 		switch kb := param.(type) {

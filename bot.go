@@ -15,8 +15,15 @@ type Bot struct {
 	TOKEN            string
 	MessageHandlers  MessageHandlers
 	CallbackHandlers CallbackHandlers
+	ParseMode        string
 	stopChannel      chan struct{}
 }
+
+const (
+	HTMLParseMode = "HTML"
+	MDParseMode   = "markdown"
+)
+
 type MessageHandlers []MessageHandler
 type CallbackHandlers []CallbackHandler
 
