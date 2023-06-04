@@ -1,5 +1,7 @@
 package filters
 
-func All(_ string) bool {
+import "github.com/YelKar/tgBotApi/utils"
+
+func All(_ utils.Message) bool {
 	return true
 }
