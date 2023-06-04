@@ -8,6 +8,7 @@ type Message struct {
 	ReplyToMessage *Message `json:"reply_to_message,omitempty"`
 	Sticker        *Sticker `json:"sticker,omitempty"`
 	ForwardFrom    *Message `json:"forward_from,omitempty"`
+	Entities       []Entity `json:"entities"`
 }
 
 func (msg *Message) Type() MessageType {
@@ -21,10 +22,24 @@ func (msg *Message) Type() MessageType {
 	if msg.Sticker != nil {
 		msgType += StickerMessage
 	}
+	if len(msg.Entities) > 0 {
+		for _, v := range msg.Entities {
+			if v.Type == "bot_command" {
+				msgType += CommandMessage
+				break
+			}
+		}
+	}
 	if msgType == 0 {
 		msgType += InputMessage
 	}
 	return msgType
+}
+
+type Entity struct {
+	Type   string `json:"type"`
+	Offset int    `json:"offset"`
+	Length int    `json:"length"`
 }
 
 type SentMessage struct {
@@ -53,5 +68,6 @@ const (
 	Callback
 	PollMessage
 	StickerMessage
+	CommandMessage
 	TextMessage = InputMessage | EditedMessage | ForwardedMessage | ReplyToMessage
 )
