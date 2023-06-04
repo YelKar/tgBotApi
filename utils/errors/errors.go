@@ -23,7 +23,7 @@ func (e Error) Error() string {
 var (
 	NoHandlers = Error{
 		Code:  0,
-		Text:  "No handlers\n\tUse Bot.AddHandler(Handler) to add handlers",
+		Text:  "No handlers\n\tUse Bot.AddMessageHandler(Handler) to add handlers",
 		Level: HIGH,
 	}
 	NoUpdates = Error{

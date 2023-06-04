@@ -12,19 +12,38 @@ var url = "https://api.telegram.org/bot%s/%s"
 var lastUpdate = 0
 
 type Bot struct {
-	TOKEN       string
-	Handlers    []Handler
-	stopChannel chan struct{}
+	TOKEN            string
+	MessageHandlers  MessageHandlers
+	CallbackHandlers CallbackHandlers
+	stopChannel      chan struct{}
+}
+type MessageHandlers []MessageHandler
+type CallbackHandlers []CallbackHandler
+
+func (mh *MessageHandlers) Add(handler MessageHandler) {
+	*mh = append(*mh, handler)
+}
+func (ch *CallbackHandlers) Add(handler CallbackHandler) {
+	*ch = append(*ch, handler)
 }
 
-type Handler struct {
-	Filter      func(string) bool
+type MessageHandler struct {
+	Filter      func(*utils.Message) bool
 	Handler     func(*Bot, *utils.Message)
 	MessageType utils.MessageType
 }
 
-func (bot *Bot) AddHandler(handler Handler) {
-	bot.Handlers = append(bot.Handlers, handler)
+type CallbackHandler struct {
+	Filter  func(*utils.CallbackQuery) bool
+	Handler func(*Bot, *utils.CallbackQuery)
+}
+
+func (bot *Bot) AddMessageHandler(handler MessageHandler) {
+	bot.MessageHandlers = append(bot.MessageHandlers, handler)
+}
+
+func (bot *Bot) AddCallbackHandler(handler CallbackHandler) {
+	bot.CallbackHandlers = append(bot.CallbackHandlers, handler)
 }
 
 func (bot *Bot) Get() (utils.Update, errors.Error) {

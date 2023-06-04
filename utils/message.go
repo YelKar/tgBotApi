@@ -50,7 +50,7 @@ const (
 	EditedMessage
 	ForwardedMessage
 	ReplyToMessage
-	CallbackQuery
+	Callback
 	PollMessage
 	StickerMessage
 	TextMessage = InputMessage | EditedMessage | ForwardedMessage | ReplyToMessage

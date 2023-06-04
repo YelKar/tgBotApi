@@ -6,7 +6,7 @@ import (
 )
 
 func (bot *Bot) Polling() <-chan struct{} {
-	if len(bot.Handlers) == 0 {
+	if len(bot.MessageHandlers) == 0 {
 		panic(errors.NoHandlers)
 	}
 	stop := make(chan struct{})
@@ -41,9 +41,18 @@ func (bot *Bot) WaitPolling() {
 func (bot *Bot) processUpdate(update utils.Update) {
 	if update.Message != nil {
 		msg := update.Message
-		for _, handler := range bot.Handlers {
-			if (handler.MessageType&msg.Type() != 0 || handler.MessageType == 0) && handler.Filter(msg.Text) {
+		for _, handler := range bot.MessageHandlers {
+			if (handler.MessageType&msg.Type() != 0 || handler.MessageType == 0) && handler.Filter(msg) {
 				handler.Handler(bot, msg)
+				break
+			}
+		}
+	}
+	if update.CallbackQuery != nil {
+		callback := update.CallbackQuery
+		for _, handler := range bot.CallbackHandlers {
+			if handler.Filter(callback) {
+				handler.Handler(bot, callback)
 				break
 			}
 		}

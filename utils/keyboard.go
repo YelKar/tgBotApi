@@ -19,6 +19,7 @@ type KeyboardButton struct {
 func (kb *Keyboard) Add(rows ...KeyboardRow) {
 	kb.Keyboard = append(kb.Keyboard, rows...)
 }
+
 func (kbr *KeyboardRow) Add(buttons ...KeyboardButton) {
 	*kbr = append(*kbr, buttons...)
 }
